@@ -4,7 +4,14 @@ const server=express()
 
 server.use(express.json({limit:"1gb"}))
 
-server.post("/",(req,res)=>{
+const currentDir=process.cwd()
+
+server.post("/readfile",(req,res)=>{
+    const fileName=req.body.fileName
+    res.status(200).sendFile(`${currentDir}/data/${fileName}`)
+})
+
+server.post("/writefile",(req,res)=>{
     const fileName=req.body.fileName
     const data=req.body.data
     
